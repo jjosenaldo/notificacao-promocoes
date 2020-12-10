@@ -1,0 +1,429 @@
+{
+ "id": "camisaNike",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude", 
+   "type": "Float",
+   "value": "-8.094254973354596"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.95164815413733"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Camisa Básica Masculina Nike - Preto M"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "60.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "true"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "vestuário"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Netshoes"
+  }
+ ]
+}
+
+{
+ "id": "camisaAdidas",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-6.872703205987066"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-34.90808422233067"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Camisa Básica Masculina Adidas - Branco P"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "70.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "false"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "vestuário"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Centauro"
+  }
+ ]
+}
+
+{
+ "id": "detergente",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.761371828790617" 
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.268666405438175"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Detergente Limpol Neutro 1L"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "2.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "true"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "limpeza"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Nordestão"
+  }
+ ]
+}
+
+{
+ "id": "sabaoCoco",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.9085685673910575"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.25493363010093"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Sabão de Coco 200g 4 un."
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "10.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "false"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "limpeza"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Rede Mais"
+  }
+ ]
+}
+
+{
+ "id": "microondas",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.842988268017546"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.205838614093544"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Micro-ondas Preto Eletrolux 20L"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "500.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "false"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "eletrodomésticos"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Casas Bahia"
+  }
+ ]
+}
+
+{
+ "id": "televisao",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.84912728080176"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.35518413310963"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Smart TV Samsung 4K 50 polegadas"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "2000.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "true"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "eletrodomésticos"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Magazine Luiza"
+  }
+ ]
+}
+
+{
+ "id": "toalha",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.831700053212853"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.21270533591483"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Toalha 100% algodão"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "15.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "true"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "cama, mesa e banho"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Iskisita Atacado"
+  }
+ ]
+}
+
+{
+ "id": "jogoCama",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.755863097638576"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.234678123973154"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Jogo de Cama Casal Cinza"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "100.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "false"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "cama, mesa e banho"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Riachuelo"
+  }
+ ]
+}
+
+{
+ "id": "filePeitoFrango",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.796134472417698"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.16189424095024"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Filé de Peito de Frango Sadia 1kg"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "15.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "true"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "açougue"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Extra"
+  }
+ ]
+}
+
+{
+ "id": "alcatra",
+ "type": "Produto",
+ "isPattern": "false",
+ "attributes": [
+  {
+   "name": "latitude",
+   "type": "Float",
+   "value": "-5.962759566111678"
+  },
+  {
+   "name": "longitude",
+   "type": "Float",
+   "value": "-35.135115603071824"
+  },
+  {
+   "name": "descricao",
+   "type": "String",
+   "value": "Alcatra 1kg"
+  },
+  {
+   "name": "preco",
+   "type": "Float",
+   "value": "50.0"
+  },
+  {
+   "name": "emPromocao",
+   "type": "Boolean",
+   "value": "false"
+  },
+  {
+   "name": "categoria",
+   "type": "String",
+   "value": "açougue"
+  },
+  {
+   "name": "loja",
+   "type": "String",
+   "value": "Super Show"
+  }
+ ]
+}
