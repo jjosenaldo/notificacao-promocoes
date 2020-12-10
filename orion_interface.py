@@ -23,7 +23,14 @@ def getAllFromCategory(category=""):
 		response = requests.get(url)
 
 		for productJson in response.json():
-			product = Product(id=productJson['id'], lat=productJson['latitude'], lon=productJson['longitude'], description=productJson['descricao'], price=productJson['preco'], onSale=productJson['emPromocao'], category=productJson['categoria'], store=productJson['loja'] )
+			product = Product(id=productJson['id'], 
+							lat=float(productJson['latitude']['value']), 
+							lon=float(productJson['longitude']['value']), 
+							description=productJson['descricao']['value'], 
+							price=float(productJson['preco']['value']), 
+							onSale=productJson['emPromocao']['value'], 
+							category=productJson['categoria']['value'], 
+							store=productJson['loja']['value'] )
 			products.append(product)
 		
 	return products

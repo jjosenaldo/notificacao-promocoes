@@ -1,14 +1,16 @@
 #!/usr/bin/python3
 import dash
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 from flask import Flask, request, Response
 
 import dropdown
 import map
-from map import Markers
+from map import *
 from panels import createMainPanel
 from server import HOST,PORT
 from buffer import Buffer
+from orion_interface import *
 
 # ------------------------------ Globals -----------------------------------
 
@@ -31,9 +33,9 @@ def home():
         buf.push(product['nome'],product['preco'],product['descricao'])
 
         products.append(product)
-    
-
     return Response(status=200)
+
+# ------------------------------ Dash config -------------------------------
 
 app = dash.Dash(
     __name__, 
@@ -62,6 +64,30 @@ def map_update(n_intervals, marks, notfs):
 	return markers.getAllMarkers(), buf.pop()+notfs
 
 
+
+@app.callback(
+	Output('hidden-dropdown-div', 'style'),
+    Input('dropdown-categorias', 'value'))
+def on_dropdown_value_changed(value):
+	if value == "" or value == None:
+		clearSelectedProcuts()
+	else:
+		products = getAllFromCategory(value)
+		updateMarkersFromProducts(products)
+
+	raise PreventUpdate('')
+
+def updateMarkersFromProducts(products):
+	subscriptionIds = subscribeAll(products)
+	markers.deleteAll()
+
+	for product in products:
+		marker = createMarker(product.lat, product.lon)
+		markers.addMarker(product.id, marker)
+
+def clearSelectedProcuts():
+	subscriptionIds = []
+	markers.deleteAll()
 
 # ------------------------------ Main --------------------------------------
 

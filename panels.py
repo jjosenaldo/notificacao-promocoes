@@ -10,7 +10,9 @@ def createLeftPanel():
 def createRightTopPanel():
 	title = html.H2(children='Escolha uma categoria:')
 	dropdown = getDropdown()
-	return html.Div(children=[title,dropdown], id='right-top')
+	# This * is needed because the dropdown consists of two components
+	# (the dropdown itself and a invisible div)
+	return html.Div(children=[title,*dropdown], id='right-top')
 
 def createRightCenterPanel(idNotifications='notifications'):
 	hr_1 = html.Hr()
