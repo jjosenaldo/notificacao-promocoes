@@ -13,19 +13,10 @@ from flask import Flask, request, Response
 import dropdown
 import map
 
-df = pd.DataFrame(
-[
-    ["State", "Number of Solar Plants", "Installed Capacity (MW)", "Average MW Per Plant", "Generation (GWh)"],
-    ["California",289,4395,15.3,10826],
-    ["Arizona",48,1078,22.5,2550],
-    ["Nevada",11,238,21.6,557],
-    ["New Mexico",33,261,7.9,590],
-    ["Colorado",20,118,5.9,235],
-    ["Texas",12,187,15.6,354],
-    ["North Carolina",148,669,4.5,1162],
-    ["New York",13,53,4.1,84]
-]
-)
+# ------------------------------ Server config -----------------------------
+
+HOST = '172.17.0.1'
+PORT = 5000
 
 server = Flask(__name__)    
 
@@ -33,6 +24,8 @@ server = Flask(__name__)
 def home():
     callback(request.json)
     return Response(status=200)
+
+# ------------------------------ Dash config -------------------------------
 
 app = dash.Dash(__name__, server=server, prevent_initial_callbacks=True)
 app.layout = html.Div([
@@ -44,17 +37,6 @@ app.layout = html.Div([
         style={
             'width': '50%', 
             'height': '100%', 
-            'margin': "0", 
-            "display": "block"
-        }
-    ),
-    dash_table.DataTable(
-        id='table',
-        columns=[{"name": i, "id": i} for i in df.columns],
-        data=df.to_dict('records'),
-        style_table={
-            'max-width':'50%',
-            'max-height': '100%',
             'margin': "0", 
             "display": "block"
         }
@@ -88,5 +70,7 @@ def map_click(n_intervals, marks):
 
     return marks
 
+# ------------------------------ Main --------------------------------------
+
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(host=HOST, port=PORT)
