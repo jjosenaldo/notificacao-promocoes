@@ -1,13 +1,9 @@
 #!/usr/bin/python3
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import dash_leaflet as dl
-import dash_table
-from random import uniform as rand
 from dash.dependencies import Input, Output, State
-import pandas as pd
 from flask import Flask, request, Response
+from map import getMarker
+from panels import createMainPanel
 
 # Local imports
 import dropdown
@@ -25,45 +21,27 @@ def home():
     callback(request.json)
     return Response(status=200)
 
-# ------------------------------ Dash config -------------------------------
-
-app = dash.Dash(__name__, server=server, prevent_initial_callbacks=True)
-app.layout = html.Div([
-    dl.Map(
-        center=(-5.811967825768887, -34.20487439621176), 
-        zoom=7, 
-        children=[dl.TileLayer(), dl.LayerGroup(children=[],id="layer")],
-        id="map", 
-        style={
-            'width': '50%', 
-            'height': '100%', 
-            'margin': "0", 
-            "display": "block"
+app = dash.Dash(
+    __name__, 
+    server=server, 
+    prevent_initial_callbacks=True,
+    meta_tags=[
+        {'charset': 'utf-8'},
+        {
+          'name': 'viewport',
+          'content': 'width=device-width, initial-scale=1.0'
         }
-    ),
-    # Increment in time
-    dcc.Interval(
-        id='interval-component',
-        interval=1*1000, # in milliseconds
-        n_intervals=0
-    )
-], 
-style={
-    'width': '100vw', 
-    'height': '100vh',
-    'display': 'flex-container',
-    'justify-content': 'space-between',
-    'align-items': 'flex-start',
-})
+    ],
+    title='Ofertados',
+    update_title=None
+)
+app.layout = createMainPanel()
 
 @app.callback(
     Output("layer", "children"),
     Input("interval-component", "n_intervals"),
-    State("layer", "children")
-    )
-def map_click(n_intervals, marks):
-# def map_click(click_lat_lng):
-    print(type(marks))
+    State("layer", "children"))
+def map_update(n_intervals, marks):
     if marks == None:
         marks = []
     marks.append(getMarker())
