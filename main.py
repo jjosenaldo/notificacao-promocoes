@@ -76,7 +76,7 @@ def on_dropdown_value_changed(value):
 	if value == "" or value == None:
 		clearSelectedProcuts()
 	else:
-		products = getAllFromCategory(value)
+		products = getProducts(value, onSale="true")
 		updateMarkersFromProducts(products)
 
 	raise PreventUpdate('')

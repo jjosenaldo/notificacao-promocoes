@@ -14,12 +14,11 @@ class Product:
 		self.category = category
 		self.store = store
 
-
-def getAllFromCategory(category=""):
+def getProducts(category="", onSale="true"):
 	products = []
 
 	if category != "":
-		url = ORION_BASE_ADDRESS + "entities?q=categoria=='"+category+"'"
+		url = ORION_BASE_ADDRESS + "entities?q=categoria=='"+category+"';emPromocao=='"+onSale+"'"
 		response = requests.get(url)
 
 		for productJson in response.json():
