@@ -2,12 +2,14 @@
 import dash
 from dash.dependencies import Input, Output, State
 from flask import Flask, request, Response
-from map import getMarker
+from map import Markers
 from panels import createMainPanel
 
 # Local imports
 import dropdown
 import map
+
+markers = Markers()
 
 # ------------------------------ Server config -----------------------------
 
@@ -42,11 +44,8 @@ app.layout = createMainPanel()
     Input("interval-component", "n_intervals"),
     State("layer", "children"))
 def map_update(n_intervals, marks):
-    if marks == None:
-        marks = []
-    marks.append(getMarker())
-
-    return marks
+	global markers
+	return markers.getAllMarkers()
 
 # ------------------------------ Main --------------------------------------
 
