@@ -62,6 +62,7 @@ def on_dropdown_value_changed(value):
 	raise PreventUpdate('')
 
 def updateMarkersFromProducts(products):
+	unsubscribe(subscriptionIds)
 	subscriptionIds = subscribeAll(products)
 	markers.deleteAll()
 
@@ -70,6 +71,7 @@ def updateMarkersFromProducts(products):
 		markers.addMarker(product.id, marker)
 
 def clearSelectedProcuts():
+	unsubscribe(subscriptionIds)
 	subscriptionIds = []
 	markers.deleteAll()
 
