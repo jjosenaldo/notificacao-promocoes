@@ -46,7 +46,7 @@ def subscribeAll(products=[]):
 
 	return subscriptionIds
 
-def unsubscribe(subscriptionId=""):
-	if subscriptionId != "":
+def unsubscribe(subscriptionIds=[]):
+	for subscriptionId in subscriptionIds:
 		url = ORION_BASE_ADDRESS + 'subscriptions/' + subscriptionId
 		requests.delete(url)
