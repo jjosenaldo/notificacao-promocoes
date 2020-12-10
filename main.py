@@ -25,16 +25,19 @@ server = Flask(__name__)
 @server.route('/notify', methods=['POST'])
 def home():
     products = []
-    for onSale in request.json['contextResponses']:
-        product = {}
-        for attrib in onSale['contextElement']['attributes']:
-            product[attrib['name']] = attrib['value']
-        product['nome'] = product['descricao']
+    try:
+	    for onSale in request.json['contextResponses']:
+	        product = {}
+	        for attrib in onSale['contextElement']['attributes']:
+	            product[attrib['name']] = attrib['value']
+	        product['nome'] = product['descricao']
 
-        buf.push(product['nome'],product['preco'],product['descricao'])
+	        buf.push(product['nome'],product['preco'],product['descricao'])
 
-        products.append(product)
-    return Response(status=200)
+	        products.append(product)
+	    return Response(status=200)
+    except KeyError:
+    	return Response(status=400)
 
 # ------------------------------ Dash config -------------------------------
 
