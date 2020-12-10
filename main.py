@@ -8,10 +8,12 @@ import map
 from map import Markers
 from panels import createMainPanel
 from server import HOST,PORT
+from buffer import Buffer
 
 # ------------------------------ Globals -----------------------------------
 
 markers = Markers()
+buf = Buffer()
 
 # ------------------------------ Server config -----------------------------
 
@@ -19,7 +21,18 @@ server = Flask(__name__)
 
 @server.route('/', methods=['POST'])
 def home():
-    callback(request.json)
+    products = []
+    for onSale in request.json['contextResponses']:
+        product = {}
+        for attrib in onSale['contextElement']['attributes']:
+            product[attrib['name']] = attrib['value']
+        product['nome'] = product['descricao']
+
+        buf.push(product['nome'],product['preco'],product['descricao'])
+
+        products.append(product)
+    
+
     return Response(status=200)
 
 app = dash.Dash(
@@ -40,11 +53,15 @@ app.layout = createMainPanel()
 
 @app.callback(
     Output("layer", "children"),
+    Output("notifications", "children"),
     Input("interval-component", "n_intervals"),
-    State("layer", "children"))
-def map_update(n_intervals, marks):
+    State("layer", "children"),
+    State("notifications", "children"))
+def map_update(n_intervals, marks, notfs):
 	global markers
-	return markers.getAllMarkers()
+	return markers.getAllMarkers(), buf.pop()+notfs
+
+
 
 # ------------------------------ Main --------------------------------------
 
