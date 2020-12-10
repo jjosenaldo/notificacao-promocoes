@@ -7,6 +7,7 @@ import dash_table
 from random import uniform as rand
 from dash.dependencies import Input, Output, State
 import pandas as pd
+from flask import Flask, request, Response
 
 df = pd.DataFrame(
 [
@@ -31,7 +32,14 @@ def getMarker(position=None):
 
     return dl.Marker(position=position, children=dl.Tooltip("({:.3f}, {:.3f})".format(*position)))
 
-app = dash.Dash(__name__, prevent_initial_callbacks=True)
+server = Flask(__name__)    
+
+@server.route('/', methods=['POST'])
+def home():
+    callback(request.json)
+    return Response(status=200)
+
+app = dash.Dash(__name__, server=server, prevent_initial_callbacks=True)
 app.layout = html.Div([
     dl.Map(
         center=(-5.811967825768887, -34.20487439621176), 
