@@ -1,4 +1,5 @@
 import requests
+from server import HOST,PORT
 
 ORION_BASE_ADDRESS = 'http://127.0.0.1:1026/v2/'
 
@@ -26,3 +27,23 @@ def getAllFromCategory(category=""):
 			products.append(product)
 		
 	return products
+
+def subscribeAll(products=[]):
+	subscriptionIds = []
+
+	for product in products:
+		url = ORION_BASE_ADDRESS + 'subscriptions/'
+		entities = [{'id':product.id, 'type':'Produto'}]
+		subject = {'entities':entities, 'condition':{'attrs':['emPromocao']}}
+		notification = {'http':{'url':'http://'+HOST+':'+str(PORT)}, 'attrs':[]}
+		throttling = 5
+
+		payload = {'subject':subject, 'notification':notification, 'throttling':throttling}
+		response = requests.post(url, json=payload)
+
+		subscriptionId = response.headers['Location'].split('/')[3]
+		subscriptionIds.append(subscriptionId)
+
+	return subscriptionIds
+
+print(subscribeAll(getAllFromCategory('açougue')))
