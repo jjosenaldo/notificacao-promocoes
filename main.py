@@ -9,6 +9,10 @@ from dash.dependencies import Input, Output, State
 import pandas as pd
 from flask import Flask, request, Response
 
+# Local imports
+import dropdown
+import map
+
 df = pd.DataFrame(
 [
     ["State", "Number of Solar Plants", "Installed Capacity (MW)", "Average MW Per Plant", "Generation (GWh)"],
