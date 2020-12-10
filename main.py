@@ -16,12 +16,13 @@ from orion_interface import *
 
 markers = Markers()
 buf = Buffer()
+subscriptionIds = []
 
 # ------------------------------ Server config -----------------------------
 
 server = Flask(__name__)    
 
-@server.route('/', methods=['POST'])
+@server.route('/notify', methods=['POST'])
 def home():
     products = []
     for onSale in request.json['contextResponses']:
@@ -78,6 +79,7 @@ def on_dropdown_value_changed(value):
 	raise PreventUpdate('')
 
 def updateMarkersFromProducts(products):
+	global subscriptionIds
 	unsubscribe(subscriptionIds)
 	subscriptionIds = subscribeAll(products)
 	markers.deleteAll()
@@ -87,6 +89,7 @@ def updateMarkersFromProducts(products):
 		markers.addMarker(product.id, marker)
 
 def clearSelectedProcuts():
+	global subscriptionIds
 	unsubscribe(subscriptionIds)
 	subscriptionIds = []
 	markers.deleteAll()

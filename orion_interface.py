@@ -42,7 +42,7 @@ def subscribeAll(products=[]):
 		url = ORION_BASE_ADDRESS + 'subscriptions/'
 		entities = [{'id':product.id, 'type':'Produto'}]
 		subject = {'entities':entities, 'condition':{'attrs':['emPromocao']}}
-		notification = {'http':{'url':'http://'+HOST+':'+str(PORT)}, 'attrs':[]}
+		notification = {'http':{'url':'http://'+HOST+':'+str(PORT)+'/notify'}, 'attrs':[]}
 		throttling = 5
 
 		payload = {'subject':subject, 'notification':notification, 'throttling':throttling}
