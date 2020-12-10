@@ -46,4 +46,7 @@ def subscribeAll(products=[]):
 
 	return subscriptionIds
 
-print(subscribeAll(getAllFromCategory('açougue')))
+def unsubscribe(subscriptionId=""):
+	if subscriptionId != "":
+		url = ORION_BASE_ADDRESS + 'subscriptions/' + subscriptionId
+		requests.delete(url)
