@@ -22,22 +22,48 @@ subscriptionIds = []
 
 server = Flask(__name__)    
 
+# @server.route('/notify', methods=['POST'])
+# def home():
+#     products = []
+#     try:
+#         for onSale in request.json['contextResponses']:
+#             product = {}
+#             for attrib in onSale['contextElement']['attributes']:
+#                 product[attrib['name']] = attrib['value']
+#             product['nome'] = product['descricao']
+
+#             buf.push(product['nome'],product['preco'],product['descricao'])
+
+#             products.append(product)
+#         return Response(status=200)
+#     except KeyError:
+#         return Response(status=400)
+
 @server.route('/notify', methods=['POST'])
 def home():
-    products = []
     try:
-	    for onSale in request.json['contextResponses']:
-	        product = {}
-	        for attrib in onSale['contextElement']['attributes']:
-	            product[attrib['name']] = attrib['value']
-	        product['nome'] = product['descricao']
+        productJson = request.json['data'][0]
+        print(productJson)
+        productId = productJson['id']
+        lat = productJson['latitude']['value']
+        lon = productJson['lontigude']['value']
 
-	        buf.push(product['nome'],product['preco'],product['descricao'])
+        if productJson['emPromocao']['value'] == "true":
+            buf.push(productJson['descricao']['value'],productJson['preco']['value'],productJson['descricao']['value'])
+            markers.addMarker(productId, createMarker(lat, lon))
+            print("\n")
+            print("ta em promo")
+            print("\n")
+        else:
+            print("\n")
+            print("nao ta em promo")
+            print("\n")
+            markers.deleteMarker(productId)
+        
 
-	        products.append(product)
-	    return Response(status=200)
+        return Response(status=200)
     except KeyError:
-    	return Response(status=400)
+        return Response(status=400)
 
 # ------------------------------ Dash config -------------------------------
 
@@ -64,38 +90,41 @@ app.layout = createMainPanel()
     State("layer", "children"),
     State("notifications", "children"))
 def map_update(n_intervals, marks, notfs):
-	global markers
-	return markers.getAllMarkers(), buf.pop()+notfs
+    global markers
+    return markers.getAllMarkers(), buf.pop()+notfs
 
 
 
 @app.callback(
-	Output('hidden-dropdown-div', 'style'),
+    Output('hidden-dropdown-div', 'style'),
     Input('dropdown-categorias', 'value'))
 def on_dropdown_value_changed(value):
-	if value == "" or value == None:
-		clearSelectedProcuts()
-	else:
-		products = getProducts(value, onSale="true")
-		updateMarkersFromProducts(products)
+    if value == "" or value == None:
+        clearSelectedProcuts()
+    else:
+        products = getProductsFromCategory(value)
+        showOnMapIfOnSale(products)
 
-	raise PreventUpdate('')
+    raise PreventUpdate('')
+
+def showOnMapIfOnSale(unfilteredProducts):
+    updateMarkersFromProducts([prod for prod in unfilteredProducts if prod.onSale=="true"])
 
 def updateMarkersFromProducts(products):
-	global subscriptionIds
-	unsubscribe(subscriptionIds)
-	subscriptionIds = subscribeAll(products)
-	markers.deleteAll()
+    global subscriptionIds
+    unsubscribe(subscriptionIds)
+    subscriptionIds = subscribeAll(products)
+    markers.deleteAll()
 
-	for product in products:
-		marker = createMarker(product.lat, product.lon)
-		markers.addMarker(product.id, marker)
+    for product in products:
+        marker = createMarker(product.lat, product.lon)
+        markers.addMarker(product.id, marker)
 
 def clearSelectedProcuts():
-	global subscriptionIds
-	unsubscribe(subscriptionIds)
-	subscriptionIds = []
-	markers.deleteAll()
+    global subscriptionIds
+    unsubscribe(subscriptionIds)
+    subscriptionIds = []
+    markers.deleteAll()
 
 # ------------------------------ Main --------------------------------------
 
