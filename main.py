@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import dash
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 from flask import Flask, request, Response
 
 import dropdown
@@ -21,6 +22,8 @@ server = Flask(__name__)
 def home():
     callback(request.json)
     return Response(status=200)
+
+# ------------------------------ Dash config -------------------------------
 
 app = dash.Dash(
     __name__, 
@@ -45,6 +48,13 @@ app.layout = createMainPanel()
 def map_update(n_intervals, marks):
 	global markers
 	return markers.getAllMarkers()
+
+@app.callback(
+	Output('hidden-dropdown-div', 'style'),
+    Input('dropdown-categorias', 'value'))
+def on_dropdown_value_changed(value):
+    print('You have selected "{}"'.format(value))
+    raise PreventUpdate('')
 
 # ------------------------------ Main --------------------------------------
 
