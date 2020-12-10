@@ -6,9 +6,10 @@ from flask import Flask, request, Response
 
 import dropdown
 import map
-from map import Markers
+from map import *
 from panels import createMainPanel
 from server import HOST,PORT
+from orion_interface import *
 
 # ------------------------------ Globals -----------------------------------
 
@@ -20,7 +21,6 @@ server = Flask(__name__)
 
 @server.route('/', methods=['POST'])
 def home():
-    callback(request.json)
     return Response(status=200)
 
 # ------------------------------ Dash config -------------------------------
@@ -53,8 +53,25 @@ def map_update(n_intervals, marks):
 	Output('hidden-dropdown-div', 'style'),
     Input('dropdown-categorias', 'value'))
 def on_dropdown_value_changed(value):
-    print('You have selected "{}"'.format(value))
-    raise PreventUpdate('')
+	if value == "" or value == None:
+		clearSelectedProcuts()
+	else:
+		products = getAllFromCategory(value)
+		updateMarkersFromProducts(products)
+
+	raise PreventUpdate('')
+
+def updateMarkersFromProducts(products):
+	subscriptionIds = subscribeAll(products)
+	markers.deleteAll()
+
+	for product in products:
+		marker = createMarker(product.lat, product.lon)
+		markers.addMarker(product.id, marker)
+
+def clearSelectedProcuts():
+	subscriptionIds = []
+	markers.deleteAll()
 
 # ------------------------------ Main --------------------------------------
 
