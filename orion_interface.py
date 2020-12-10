@@ -26,5 +26,3 @@ def getAllFromCategory(category=""):
 			products.append(product)
 		
 	return products
-
-print(getAllFromCategory('vestuário'))
