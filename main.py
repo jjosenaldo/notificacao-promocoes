@@ -41,29 +41,26 @@ server = Flask(__name__)
 
 @server.route('/notify', methods=['POST'])
 def home():
-    try:
-        productJson = request.json['data'][0]
-        print(productJson)
-        productId = productJson['id']
-        lat = productJson['latitude']['value']
-        lon = productJson['lontigude']['value']
+    productJson = request.json['data'][0]
+    print(productJson)
+    productId = productJson['id']
+    lat = float(productJson['latitude']['value'])
+    lon = float(productJson['longitude']['value'])
 
-        if productJson['emPromocao']['value'] == "true":
-            buf.push(productJson['descricao']['value'],productJson['preco']['value'],productJson['descricao']['value'])
-            markers.addMarker(productId, createMarker(lat, lon))
-            print("\n")
-            print("ta em promo")
-            print("\n")
-        else:
-            print("\n")
-            print("nao ta em promo")
-            print("\n")
-            markers.deleteMarker(productId)
-        
+    if productJson['emPromocao']['value'] == "true":
+        buf.push(productJson['descricao']['value'],productJson['preco']['value'],productJson['descricao']['value'])
+        markers.addMarker(productId, createMarker(lat, lon))
+        print("\n")
+        print("ta em promo")
+        print("\n")
+    else:
+        print("\n")
+        print("nao ta em promo")
+        print("\n")
+        markers.deleteMarker(productId)
+    
 
-        return Response(status=200)
-    except KeyError:
-        return Response(status=400)
+    return Response(status=200)
 
 # ------------------------------ Dash config -------------------------------
 
