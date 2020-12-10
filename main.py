@@ -2,19 +2,18 @@
 import dash
 from dash.dependencies import Input, Output, State
 from flask import Flask, request, Response
-from map import Markers
-from panels import createMainPanel
 
-# Local imports
 import dropdown
 import map
+from map import Markers
+from panels import createMainPanel
+from server import HOST,PORT
+
+# ------------------------------ Globals -----------------------------------
 
 markers = Markers()
 
 # ------------------------------ Server config -----------------------------
-
-HOST = '172.17.0.1'
-PORT = 5000
 
 server = Flask(__name__)    
 
